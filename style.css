@@ -53,10 +53,17 @@ a { text-decoration: none; }
   overflow: hidden;
   z-index: 100;
 }
+.sidebar-logo {
+  width: 200px;        /* เพิ่มจากเดิม */
+  height: auto;
+  display: block;
+  margin: 16px auto;
+  zoom: 200%;      /* จัดกลาง (ถ้าต้องการ) */
+}
 
 .sidebar.closed {
-  width: 70px;
-  padding: 24px 8px;
+  width: 0;
+  padding: 0;
 }
 
 .sidebar-header {
