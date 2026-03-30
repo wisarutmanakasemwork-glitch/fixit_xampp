@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixIt KMUTNB - จัดการคำร้อง</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+</head>
+
+<body>
+
+<!-- ===== Sidebar ===== -->
+<nav class="sidebar" id="mySidebar">
+  <div class="sidebar-header">
+    <img src="FixItKMUTNB logo.png" class="sidebar-logo" onerror="this.style.display='none'">
+    <div class="sidebar-title">FixIt KMUTNB</div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showTab('insert')">
+      <i class="fas fa-plus-circle"></i> เพิ่มคำร้อง
+    </a></li>
+    <li><a href="#" onclick="showTab('search')">
+      <i class="fas fa-search"></i> ค้นหา / ติดตาม
+    </a></li>
+    <li><a href="#" onclick="showTab('admin')">
+      <i class="fas fa-wrench"></i> จัดการคำร้อง (Admin)
+    </a></li>
+  </ul>
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="main-content" id="mainContent">
+
+  <header class="top-navbar">
+    <div class="left-section">
+      <span class="menu-icon" onclick="toggleSidebar()">&#9776;</span>
+      <span class="welcome-text" id="navTitle">เพิ่มคำร้อง</span>
+    </div>
+    <div class="user-info">
+      <span class="api-status" id="apiStatus">🔄 กำลังเชื่อมต่อ...</span>
+    </div>
+  </header>
+
+  <div class="content-body">
+
+    <!-- ===========================
+         TAB 1: INSERT (เพิ่มคำร้อง)
+         =========================== -->
+    <div id="tab-insert" class="tab-content active">
+      <div class="form-card">
+        <h2 class="form-title">
+          <i class="fas fa-file-signature"></i> ยื่นคำร้องแจ้งซ่อม
+        </h2>
+
+        <div class="form-group select-box">
+          <label><i class="fas fa-building"></i> อาคาร / สถานที่</label>
+          <select id="buildingSelect" required>
+            <option value="">-- เลือกอาคาร --</option>
+            <option value="11">11 - อาคารบัณฑิตวิทยาลัยวิศวกรรมศาสตร์นานาชาติสิรินธรไทย-เยอรมัน (TGGS)</option>
+            <option value="12">12 - อาคารกองอาคารสถานที่และยานพาหนะ</option>
+            <option value="13">13 - อาคารปฏิบัติการเทคโนโลยีเครื่องจักรกลไฟฟ้าและเครื่องจักรกลหนัก</option>
+            <option value="14">14 - สถานีไฟฟ้าย่อย</option>
+            <option value="21-22">21-22 - อาคารอเนกประสงค์ (อาคารอธิการบดี)</option>
+            <option value="23">23 - อาคารนวมินทรราชินี</option>
+            <option value="41">41 - อาคารคณะสถาปัตยกรรมและการออกแบบ</option>
+            <option value="42,62-69">42,62-69 - อาคารวิทยาลัยเทคโนโลยีอุตสาหกรรม</option>
+            <option value="43">43 - อาคารสถาบันนวัตกรรมเทคโนโลยีไทย-ฝรั่งเศส (TFII)</option>
+            <option value="44-52">44-52 - อาคารปฏิบัติการและประลองรวม คณะครุศาสตร์อุตสาหกรรม</option>
+            <option value="46">46 - อาคารคณะศิลปศาสตร์ประยุกต์และโรงอาหาร</option>
+            <option value="47">47 - อาคารสำนักวิจัยวิทยาศาสตร์และเทคโนโลยี (STRI)</option>
+            <option value="72">72 - อาคารยิมเนเซี่ยม</option>
+            <option value="73">73 - อาคาร TGDE</option>
+            <option value="75-78">75-78 - อาคารคณะวิทยาศาสตร์ประยุกต์</option>
+            <option value="76">76 - อาคารสำนักพัฒนาเทคนิคศึกษา</option>
+            <option value="77">77 - อาคาร 40 ปี มจพ. และโรงอาหารกลาง</option>
+            <option value="79">79 - อาคารสโมสรบุคลากร มจพ.</option>
+            <option value="81-89">81-89 - อาคารคณะวิศวกรรมศาสตร์</option>
+            <option value="90-91,97">90-91,97 - โรงเรียนเตรียมวิศวกรรมศาสตร์ ไทย-เยอรมัน</option>
+            <option value="92-93">92-93 - ศูนย์ที่พักเพื่อการเรียนรู้และสันทนาการ</option>
+            <option value="94">94 - อาคารปฏิบัติการวิทยาศาสตร์การกีฬา</option>
+            <option value="95">95 - อาคารวิทยาลัยนานาชาติ</option>
+            <option value="96">96 - อาคารคณะพัฒนาธุรกิจและอุตสาหกรรม</option>
+            <option value="98">98 - โรงอาหาร</option>
+            <option value="99">99 - อาคารเก็บเอกสาร</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> ชื่อผู้แจ้ง</label>
+          <input type="text" id="userIdInput" placeholder="ชื่อ-นามสกุล หรือ รหัสนักศึกษา" required>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-align-left"></i> รายละเอียดปัญหา</label>
+          <textarea id="descriptionInput" placeholder="เช่น ถนนเป็นหลุม, ไฟทางเดินดับ" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-image"></i> แนบภาพ (ไม่บังคับ)</label>
+          <input type="file" id="imageInput" accept="image/*">
+        </div>
+
+        <button class="submit-btn" onclick="submitRequest()">
+          <i class="fas fa-paper-plane"></i> ส่งคำร้อง
+        </button>
+
+        <div id="insertMsg" class="msg-box" style="display:none"></div>
+      </div>
+    </div>
+
+
+    <!-- ===========================
+         TAB 2: SEARCH (ค้นหา)
+         =========================== -->
+    <div id="tab-search" class="tab-content">
+
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="ระบุเลขที่คำร้อง เช่น REQ-1234...">
+        <button onclick="searchById()"><i class="fas fa-search"></i> ค้นหา</button>
+        <button class="btn-secondary" onclick="loadAllForSearch()">
+          <i class="fas fa-list"></i> แสดงทั้งหมด
+        </button>
+      </div>
+
+      <div id="searchResults"></div>
+    </div>
+
+
+    <!-- ===========================
+         TAB 3: ADMIN (Update + Delete)
+         =========================== -->
+    <div id="tab-admin" class="tab-content">
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-info"><h3 id="totalCount">0</h3><p>คำร้องทั้งหมด</p></div>
+        </div>
+        <div class="stat-card pending-card">
+          <div class="stat-info"><h3 id="pendingCount">0</h3><p>รอตรวจสอบ</p></div>
+        </div>
+        <div class="stat-card progress-card">
+          <div class="stat-info"><h3 id="progressCount">0</h3><p>กำลังดำเนินการ</p></div>
+        </div>
+        <div class="stat-card done-card">
+          <div class="stat-info"><h3 id="doneCount">0</h3><p>เสร็จสิ้น</p></div>
+        </div>
+        <div class="stat-card reject-card">
+          <div class="stat-info"><h3 id="rejectCount">0</h3><p>ไม่อนุมัติ</p></div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <h2>รายการคำร้องทั้งหมด</h2>
+          <button onclick="loadAdminTable()"><i class="fas fa-sync"></i> รีเฟรช</button>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>ห้อง / อาคาร</th>
+                <th>รายละเอียด</th>
+                <th>ผู้แจ้ง</th>
+                <th>รูป</th>
+                <th>สถานะ</th>
+                <th>อัปเดต</th>
+                <th>ลบ</th>
+              </tr>
+            </thead>
+            <tbody id="adminTable">
+              <tr><td colspan="8" style="text-align:center;color:#94a3b8">กดรีเฟรชเพื่อโหลดข้อมูล</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content-body -->
+</div><!-- end main-content -->
+
+
+<script>
+/* ================================================
+   CONFIG
+================================================ */
+const API_URL = "http://localhost/fixit_xampp/api.php";
+
+/* ================================================
+   INIT
+================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  // Tom Select สำหรับ dropdown อาคาร
+  new TomSelect("#buildingSelect", {
+    create: false,
+    placeholder: "พิมพ์เลขหรือชื่ออาคาร...",
+    maxOptions: 200
+  });
+
+  // ทดสอบการเชื่อมต่อ API
+  checkAPI();
+});
+
+async function checkAPI() {
+  try {
+    const res = await fetch(API_URL);
+    if (res.ok) {
+      document.getElementById("apiStatus").textContent = "✅ เชื่อมต่อ API แล้ว";
+      document.getElementById("apiStatus").style.color = "#22c55e";
+    } else {
+      throw new Error();
+    }
+  } catch {
+    document.getElementById("apiStatus").textContent = "❌ ไม่สามารถเชื่อมต่อ API";
+    document.getElementById("apiStatus").style.color = "#ef4444";
+  }
+}
+
+/* ================================================
+   UI TABS
+================================================ */
+function showTab(name) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+
+  document.getElementById("tab-" + name).classList.add("active");
+
+  const labels = { insert: "เพิ่มคำร้อง", search: "ค้นหา / ติดตาม", admin: "จัดการคำร้อง (Admin)" };
+  document.getElementById("navTitle").textContent = labels[name] || "";
+
+  // highlight sidebar
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    if (a.getAttribute("onclick") && a.getAttribute("onclick").includes(name)) {
+      a.classList.add("active");
+    }
+  });
+
+  // auto load admin table
+  if (name === "admin") loadAdminTable();
+}
+
+function toggleSidebar() {
+  document.getElementById("mySidebar").classList.toggle("closed");
+  document.getElementById("mainContent").classList.toggle("full-width");
+}
+
+
+/* ================================================
+   INSERT — ส่งคำร้อง (POST)
+================================================ */
+async function submitRequest() {
+  const building  = document.getElementById("buildingSelect");
+  const userId    = document.getElementById("userIdInput").value.trim();
+  const desc      = document.getElementById("descriptionInput").value.trim();
+  const file      = document.getElementById("imageInput").files[0];
+  const msgBox    = document.getElementById("insertMsg");
+
+  if (!building.value || !userId || !desc) {
+    showMsg(msgBox, "กรุณากรอกข้อมูลให้ครบ (อาคาร, ชื่อ, รายละเอียด)", "error");
+    return;
+  }
+
+  let base64Image = null;
+  if (file) {
+    base64Image = (await toBase64(file)).split(",")[1];
+  }
+
+  const payload = {
+    room: building.options[building.selectedIndex].text,
+    description: desc,
+    image: base64Image,
+    status: "รอตรวจสอบ",
+    userId: userId
+  };
+
+  try {
+    showMsg(msgBox, "⏳ กำลังส่งคำร้อง...", "info");
+    const res  = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+
+    if (data.requestId) {
+      showMsg(msgBox, `✅ ส่งคำร้องสำเร็จ! รหัสคำร้อง: <strong>${data.requestId}</strong>`, "success");
+
+      // รีเซ็ตฟอร์ม
+      document.getElementById("userIdInput").value = "";
+      document.getElementById("descriptionInput").value = "";
+      document.getElementById("imageInput").value = "";
+      building.tomselect?.clear();
+
+    } else {
+      showMsg(msgBox, "❌ ส่งไม่สำเร็จ กรุณาลองใหม่", "error");
+    }
+  } catch (err) {
+    console.error(err);
+    showMsg(msgBox, "❌ เชื่อมต่อ API ไม่ได้", "error");
+  }
+}
+
+
+/* ================================================
+   SEARCH — ค้นหาคำร้อง (GET + filter)
+================================================ */
+async function searchById() {
+  const id = document.getElementById("searchInput").value.trim();
+  if (!id) { alert("กรุณาระบุเลขที่คำร้อง"); return; }
+
+  const container = document.getElementById("searchResults");
+  container.innerHTML = "<p>⏳ กำลังค้นหา...</p>";
+
+  try {
+    const data = await fetchAll();
+    const found = data.filter(item =>
+      item.requestId && item.requestId.toLowerCase().includes(id.toLowerCase())
+    );
+    renderSearchCards(found);
+  } catch (err) {
+    container.innerHTML = "<p style='color:red'>เชื่อมต่อ API ไม่ได้</p>";
+  }
+}
+
+async function loadAllForSearch() {
+  const container = document.getElementById("searchResults");
+  container.innerHTML = "<p>⏳ กำลังโหลด...</p>";
+  try {
+    const data = await fetchAll();
+    renderSearchCards(data.slice().reverse());
+  } catch {
+    container.innerHTML = "<p style='color:red'>เชื่อมต่อ API ไม่ได้</p>";
+  }
+}
+
+function renderSearchCards(data) {
+  const container = document.getElementById("searchResults");
+  if (!data.length) {
+    container.innerHTML = "<p style='text-align:center;margin-top:20px'>ไม่พบคำร้อง</p>";
+    return;
+  }
+
+  container.innerHTML = data.map(item => `
+    <div class="status-card">
+      <div class="card-header">
+        <h3>คำร้อง <span style="font-weight:400;font-size:14px">${item.requestId}</span></h3>
+        <span class="status-pill ${getStatusClass(item.status)}">${item.status || "รอตรวจสอบ"}</span>
+      </div>
+      <p><strong>ห้อง/อาคาร:</strong> ${item.room || "-"}</p>
+      <p><strong>รายละเอียด:</strong> ${item.description || "-"}</p>
+      <p><strong>ผู้แจ้ง:</strong> ${item.userId || "-"}</p>
+      <p><strong>วันที่แจ้ง:</strong> ${formatDate(item.createdAt)}</p>
+      ${item.imageUrl ? `<img src="${item.imageUrl}" alt="ภาพ" style="max-width:300px;border-radius:10px;margin-top:10px">` : ""}
+      <div class="stepper-wrapper">${renderStepper(item.status)}</div>
+    </div>
+  `).join("");
+}
+
+
+/* ================================================
+   ADMIN TABLE — โหลด, อัปเดต, ลบ
+================================================ */
+async function loadAdminTable() {
+  const tbody = document.getElementById("adminTable");
+  tbody.innerHTML = "<tr><td colspan='8' style='text-align:center'>⏳ กำลังโหลด...</td></tr>";
+
+  try {
+    const data = await fetchAll();
+    const rows = data.slice().reverse();
+
+    // Stats
+    document.getElementById("totalCount").textContent   = rows.length;
+    document.getElementById("pendingCount").textContent  = rows.filter(r => r.status === "รอตรวจสอบ").length;
+    document.getElementById("progressCount").textContent = rows.filter(r => r.status === "กำลังดำเนินการ").length;
+    document.getElementById("doneCount").textContent     = rows.filter(r => r.status === "เสร็จสิ้น").length;
+    document.getElementById("rejectCount").textContent   = rows.filter(r => r.status === "ไม่อนุมัติ").length;
+
+    if (!rows.length) {
+      tbody.innerHTML = "<tr><td colspan='8' style='text-align:center'>ไม่มีคำร้อง</td></tr>";
+      return;
+    }
+
+    tbody.innerHTML = rows.map(item => `
+      <tr>
+        <td><span class="req-id">${item.requestId}</span></td>
+        <td>${item.room || "-"}</td>
+        <td>${item.description || "-"}</td>
+        <td>${item.userId || "-"}</td>
+        <td>${item.imageUrl ? `<img src="${item.imageUrl}" width="60" style="border-radius:8px">` : "-"}</td>
+        <td><span class="status-pill ${getStatusClass(item.status)}">${item.status || "-"}</span></td>
+        <td>
+          <select onchange="changeStatus('${item.requestId}', this.value)">
+            <option value="">-- เลือก --</option>
+            <option value="รอตรวจสอบ"      ${item.status==="รอตรวจสอบ"?"selected":""}>รอตรวจสอบ</option>
+            <option value="กำลังดำเนินการ"  ${item.status==="กำลังดำเนินการ"?"selected":""}>กำลังดำเนินการ</option>
+            <option value="เสร็จสิ้น"       ${item.status==="เสร็จสิ้น"?"selected":""}>เสร็จสิ้น</option>
+            <option value="ไม่อนุมัติ"      ${item.status==="ไม่อนุมัติ"?"selected":""}>ไม่อนุมัติ</option>
+          </select>
+        </td>
+        <td>
+          <button class="btn-delete" onclick="deleteRequest('${item.requestId}')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `).join("");
+
+  } catch (err) {
+    tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;color:red'>เชื่อมต่อ API ไม่ได้</td></tr>";
+  }
+}
+
+/* UPDATE — เปลี่ยนสถานะ (PUT) */
+async function changeStatus(requestId, newStatus) {
+  if (!newStatus) return;
+  if (!confirm(`ยืนยันเปลี่ยนสถานะ "${requestId}" เป็น "${newStatus}"?`)) return;
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ requestId, status: newStatus })
+    });
+    if (res.ok) {
+      alert("✅ อัปเดตสำเร็จ");
+      loadAdminTable();
+    } else {
+      alert("❌ อัปเดตไม่สำเร็จ");
+    }
+  } catch {
+    alert("❌ เชื่อมต่อ API ไม่ได้");
+  }
+}
+
+/* DELETE — ลบคำร้อง (DELETE) */
+async function deleteRequest(requestId) {
+  if (!confirm(`⚠️ ต้องการลบคำร้อง "${requestId}" ใช่หรือไม่?\nการลบไม่สามารถย้อนกลับได้`)) return;
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ requestId })
+    });
+    if (res.ok) {
+      alert("✅ ลบสำเร็จ");
+      loadAdminTable();
+    } else {
+      // ถ้า API ยังไม่รองรับ DELETE ให้แจ้ง
+      alert("❌ ลบไม่สำเร็จ (API อาจยังไม่รองรับ DELETE)");
+    }
+  } catch {
+    alert("❌ เชื่อมต่อ API ไม่ได้");
+  }
+}
+
+
+/* ================================================
+   HELPERS
+================================================ */
+async function fetchAll() {
+  const res  = await fetch(API_URL);
+  const raw  = await res.json();
+  return typeof raw.body === "string" ? JSON.parse(raw.body) : raw;
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.readAsDataURL(file);
+    r.onload  = () => resolve(r.result);
+    r.onerror = reject;
+  });
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "-";
+  return new Date(dateStr).toLocaleDateString("th-TH", {
+    year: "numeric", month: "short", day: "numeric",
+    hour: "2-digit", minute: "2-digit"
+  });
+}
+
+function getStatusClass(status = "") {
+  if (status.includes("เสร็จ"))    return "completed";
+  if (status.includes("ดำเนิน"))   return "progress";
+  if (status.includes("ไม่อนุมัติ")) return "rejected";
+  return "pending";
+}
+
+function renderStepper(status = "") {
+  let step = 1;
+  if (status.includes("เสร็จ"))  step = 4;
+  else if (status.includes("ดำเนิน")) step = 3;
+  else if (status.includes("ตรวจ"))   step = 2;
+
+  const steps = ["ยื่นคำร้อง", "ตรวจสอบ", "กำลังดำเนินการ", "เสร็จสิ้น"];
+  return steps.map((name, i) => `
+    <div class="stepper-item ${i + 1 < step ? "completed" : i + 1 === step ? "active" : ""}">
+      <div class="step-counter">${i + 1 < step ? "✔" : i + 1}</div>
+      <div class="step-name">${name}</div>
+    </div>
+  `).join("");
+}
+
+function showMsg(el, html, type) {
+  el.style.display = "block";
+  el.className = "msg-box " + type;
+  el.innerHTML  = html;
+}
+</script>
+
+</body>
+</html>

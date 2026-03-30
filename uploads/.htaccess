@@ -1,0 +1,5 @@
+# ป้องกัน execute PHP ใน uploads folder
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+Options -ExecCGI
